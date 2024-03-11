@@ -1,0 +1,45 @@
+# Program to bubble sort an array of 10 values
+# Check the expected output and compare it with the one of your simulator
+# The format is: <instruction mem. address>: <OPCODE> <COMMA SEPARATED OPERANDS>;
+# All numers are decimal
+
+# initialize registers with necessary data
+1: LI R1 0;             # first array index in memory
+2: LI R2 255;            # last array index in memory + 1
+
+# first loop with i index
+4: LI R3 0;             # initialize i index
+5: LI R10 29;           # end of i loop (temporary variable)
+6: JEQ R10 R3 R2;       # end i loop if i == last array index + 1
+7: ADD R4 R3 R0;        # initialize min_idx variable
+
+# second loop with j index
+8: LI R10 1;            # 1 (temporary variable)
+9: ADD R5 R3 R10;       # initialize j index with i+1
+10: LI R10 21;          # end of j loop (temporary variable)
+11: JEQ R10 R5 R2;      # end j loop if j == last array index + 1
+# check if current index represents smaller value in the array
+12: LD R10 R4;          # load value of index min_idx
+13: LD R11 R5;          # load value of index j
+14: LI R12 17;          # go to (temporary value)
+15: JLT R12 R10 R11;    # if array[min_idx] < array[j], skip reassignment
+16: ADD R4 R5 R0;       # add j to min_idx
+# go to the beginning of the loop
+17: LI R10 1;           # 1 (temporary variable)
+18: ADD R5 R5 R10;      # increment j
+19: LI R10 10;          # beginning of j loop (temporary variable)
+20: JR R10;             # go to the begging of j loop
+
+# swap the smallest element with current element
+21: LD R10 R3;          # load value of index i
+22: LD R11 R4;          # load value of index min_idx
+23: SD R11 R3;          # write value of index min_idx to i
+24: SD R10 R4;          # write value of index i to min_idx
+
+# go to the beginning of the i loop
+25: LI R10 1;           # 1 (temporary variable)
+26: ADD R3 R3 R10;      # increment i
+27: LI R10 5;           # beginning of i loop (temporary variable)
+28: JR R10;             # go to the begging of i loop
+
+29: END;
