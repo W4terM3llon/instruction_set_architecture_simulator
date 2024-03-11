@@ -5,7 +5,7 @@
 
 # initialize registers with necessary data
 1: LI R1 0;             # first array index in memory
-2: LI R2 255;            # last array index in memory + 1
+2: LI R2 100;            # last array index in memory + 1
 
 # first loop with i index
 4: LI R3 0;             # initialize i index

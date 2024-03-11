@@ -298,11 +298,6 @@ class InstructionMemory:
                 print('Address ' + str(address) + ' = ', end='')
                 self.print_instruction(address)
 
-
-
-current_cycle=0
-program_counter=0
-
 registerFile = RegisterFile()
 dataMemory = DataMemory()
 instructionMemory = InstructionMemory()
@@ -313,7 +308,7 @@ print('\n---Start of simulation---\n')
 ####################################
 class State:
     def __init__(self):
-        self.current_address = 0
+        self.current_address = 0  # same as program_counter
         self.is_instruction_jump_in_current_cycle = False
         self.is_terminated = False
 state = State()
@@ -369,11 +364,11 @@ def execute_instruction(instruction, operators, values):
             state.is_terminated = True
 
 
+current_cycle = 0
 while (current_cycle <= max_cycles
        and not state.is_terminated):
     instruction, operators, values = get_cycle_data()
     #  print(f'{instruction}; {operators};  {values}')  # uncomment for step by step debugging
-
     execute_instruction(instruction, operators, values)
 
     if not state.is_instruction_jump_in_current_cycle:
