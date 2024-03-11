@@ -306,6 +306,7 @@ print('\n---Start of simulation---\n')
 #####################################
 ##      Write your code here      ##
 ####################################
+# we want to store the program state, because we want to pass by reference to a function and modify it there..
 class State:
     def __init__(self):
         self.current_address = 0  # same as program_counter
@@ -313,7 +314,7 @@ class State:
         self.is_terminated = False
 state = State()
 
-def get_cycle_data():
+def get_cycle_data(instructionMemory: InstructionMemory, state: State):
     instruction = instructionMemory.read_opcode(state.current_address)
     operators = [
         instructionMemory.read_operand_1(state.current_address),
@@ -329,7 +330,7 @@ def get_cycle_data():
 
     return instruction, operators, values
 
-def execute_instruction(instruction, operators, values):
+def execute_instruction(registerFile: RegisterFile, state: State, instruction: str, operators: list[str], values: list[int]):
     match instruction:
         case 'ADD':
             return registerFile.write_register(operators[0], values[1] + values[2])
@@ -367,9 +368,9 @@ def execute_instruction(instruction, operators, values):
 current_cycle = 0
 while (current_cycle <= max_cycles
        and not state.is_terminated):
-    instruction, operators, values = get_cycle_data()
+    instruction, operators, values = get_cycle_data(instructionMemory, state)
     #  print(f'{instruction}; {operators};  {values}')  # uncomment for step by step debugging
-    execute_instruction(instruction, operators, values)
+    execute_instruction(registerFile, state, instruction, operators, values)
 
     if not state.is_instruction_jump_in_current_cycle:
         state.current_address += 1
