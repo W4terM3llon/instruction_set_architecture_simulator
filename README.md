@@ -266,3 +266,12 @@ Executes in 51342 cycles.
 
 ---End of simulation---
 ```
+
+
+You can generate new number to sort. The following script will replace data_mem_3.txt file with new numbers. 
+
+```bash
+  cd ..\..\
+  python .\RandomDataMemGenerator.py 100
+  cd .\testCases\test_3\
+```
